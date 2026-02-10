@@ -64,12 +64,11 @@ class TestTransactionAwaiter:
                 TransactionStatus("pending"),
                 TimelinePointWait(40),
                 TransactionStatus("not-executable-in-block"),
-                TimelinePointMarkCompleted(),
             ],
         )
-        tx_from_network = self.watcher.await_completed(tx_hash)
+        tx_from_network = self.watcher.await_on_condition(tx_hash, lambda tx: tx.status.is_not_executable_in_block)
 
-        assert tx_from_network.status.is_failed
+        assert tx_from_network.status.is_not_executable_in_block
 
     @pytest.mark.networkInteraction
     def test_on_network(self):
