@@ -103,8 +103,12 @@ class SmartContractController(BaseController):
     def parse_deploy(self, transaction_on_network: TransactionOnNetwork) -> SmartContractDeployOutcome:
         return self.parser.parse_deploy(transaction_on_network)
 
-    def await_completed_deploy(self, transaction_hash: Union[str, bytes]) -> SmartContractDeployOutcome:
-        transaction = self.network_provider.await_transaction_completed(transaction_hash)
+    def await_completed_deploy(
+        self,
+        transaction_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> SmartContractDeployOutcome:
+        transaction = self.network_provider.await_transaction_completed(transaction_hash, options)
         return self.parse_deploy(transaction)
 
     def create_transaction_for_upgrade(
@@ -190,8 +194,12 @@ class SmartContractController(BaseController):
     ) -> ParsedSmartContractCallOutcome:
         return self.parser.parse_execute(transaction_on_network, function)
 
-    def await_completed_execute(self, transaction_hash: Union[str, bytes]) -> ParsedSmartContractCallOutcome:
-        transaction = self.network_provider.await_transaction_completed(transaction_hash)
+    def await_completed_execute(
+        self,
+        transaction_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> ParsedSmartContractCallOutcome:
+        transaction = self.network_provider.await_transaction_completed(transaction_hash, options)
         return self.parse_execute(transaction, transaction.function)
 
     def query(

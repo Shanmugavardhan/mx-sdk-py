@@ -100,8 +100,12 @@ class GovernanceController(BaseController):
     def parse_new_proposal(self, transaction_on_network: TransactionOnNetwork) -> list[NewProposalOutcome]:
         return self._parser.parse_new_proposal(transaction_on_network)
 
-    def await_completed_new_proposal(self, tx_hash: Union[str, bytes]) -> list[NewProposalOutcome]:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_new_proposal(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> list[NewProposalOutcome]:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_new_proposal(transaction)
 
     def create_transaction_for_voting(
@@ -132,8 +136,12 @@ class GovernanceController(BaseController):
     def parse_vote(self, transaction_on_network: TransactionOnNetwork) -> list[VoteOutcome]:
         return self._parser.parse_vote(transaction_on_network)
 
-    def await_completed_vote(self, tx_hash: Union[str, bytes]) -> list[VoteOutcome]:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_vote(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> list[VoteOutcome]:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_vote(transaction)
 
     def create_transaction_for_closing_proposal(
@@ -163,8 +171,12 @@ class GovernanceController(BaseController):
     def parse_close_proposal(self, transaction_on_network: TransactionOnNetwork) -> list[CloseProposalOutcome]:
         return self._parser.parse_close_proposal(transaction_on_network)
 
-    def await_completed_close_proposal(self, tx_hash: Union[str, bytes]) -> list[CloseProposalOutcome]:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_close_proposal(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> list[CloseProposalOutcome]:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_close_proposal(transaction)
 
     def create_transaction_for_clearing_ended_proposals(

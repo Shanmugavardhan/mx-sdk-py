@@ -118,8 +118,12 @@ class MultisigController(BaseController):
     def parse_deploy(self, transaction_on_network: TransactionOnNetwork) -> SmartContractDeployOutcome:
         return self._parser.parse_deploy(transaction_on_network)
 
-    def await_completed_deploy(self, tx_hash: Union[str, bytes]) -> SmartContractDeployOutcome:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_deploy(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> SmartContractDeployOutcome:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_deploy(transaction)
 
     def create_transaction_for_deposit(
@@ -966,15 +970,23 @@ class MultisigController(BaseController):
     def parse_propose_action(self, transaction_on_network: TransactionOnNetwork) -> int:
         return self._parser.parse_propose_action(transaction_on_network)
 
-    def await_completed_execute_propose_any(self, tx_hash: Union[str, bytes]) -> int:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_execute_propose_any(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> int:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_propose_action(transaction)
 
     def parse_perform_action(self, transaction_on_network: TransactionOnNetwork) -> Optional[Address]:
         return self._parser.parse_perform_action(transaction_on_network)
 
-    def await_completed_perform_action(self, tx_hash: Union[str, bytes]) -> Optional[Address]:
-        transaction = self._network_provider.await_transaction_completed(tx_hash)
+    def await_completed_perform_action(
+        self,
+        tx_hash: Union[str, bytes],
+        options: Optional[AwaitingOptions] = None,
+    ) -> Optional[Address]:
+        transaction = self._network_provider.await_transaction_completed(tx_hash, options)
         return self.parse_perform_action(transaction)
 
     def create_transaction_for_execute(
