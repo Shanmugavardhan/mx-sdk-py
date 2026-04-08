@@ -33,6 +33,15 @@ from multiversx_sdk.delegation import (
     DelegationTransactionsFactory,
     DelegationTransactionsOutcomeParser,
 )
+from multiversx_sdk.drwa import (
+    DrwaDenial,
+    DrwaPolicySummary,
+    decode_drwa_denial,
+    get_drwa_policy_summary,
+    is_drwa_token,
+    is_regulated_failure,
+    parse_drwa_denial,
+)
 from multiversx_sdk.entrypoints import (
     DevnetEntrypoint,
     LocalnetEntrypoint,
@@ -209,6 +218,8 @@ __all__ = [
     "UserWallet",
     "UserPEM",
     "DelegationTransactionsOutcomeParser",
+    "DrwaDenial",
+    "DrwaPolicySummary",
     "find_events_by_identifier",
     "find_events_by_first_topic",
     "SmartContractTransactionsOutcomeParser",
@@ -238,6 +249,11 @@ __all__ = [
     "RegisterAndSetAllRolesOutcome",
     "SetSpecialRoleOutcome",
     "NFTCreateOutcome",
+    "decode_drwa_denial",
+    "get_drwa_policy_summary",
+    "is_drwa_token",
+    "is_regulated_failure",
+    "parse_drwa_denial",
     "MintOutcome",
     "BurnOutcome",
     "PauseOutcome",
