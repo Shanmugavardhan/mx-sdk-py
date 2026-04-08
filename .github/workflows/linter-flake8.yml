@@ -1,7 +1,11 @@
 # See: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Linter checks (flake8)
-on: [pull_request]
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 permissions:
   contents: read
